@@ -4,7 +4,7 @@ from dotenv import load_dotenv, find_dotenv
 from mistralai.client import MistralClient
 from mistralai.models.chat_completion import ChatMessage
 
-import logging
+from config import logger
 
 api_key = None
 dlai_endpoint = None

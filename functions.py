@@ -1,6 +1,6 @@
 import json
 import os
-import logging
+from config import logger
 
 from serpapi import GoogleSearch
 
@@ -18,7 +18,7 @@ def get_flights(departure_id: str, arrival_id: str, outbound_date: str, return_d
         "return_date": return_date,
         "currency": "USD"
     }
-    logging.info(params)
+    logger.info(params)
     search = GoogleSearch(params)
     results = search.get_dict()
     return results
