@@ -1,2 +1,3 @@
-export MISTRAL_API_KEY="x7JfmtqXomk2dz8ZR3xziwr0KhO2bc3T"
+export MISTRAL_API_KEY="gvFSj09vAvLh1wobjjFijKnAf97HmjDi"
 export DLAI_MISTRAL_API_ENDPOINT="https://api.mistral.ai/v1/chat/completions"
+export GOOGLE_SEARCH_APIKEY="55b10cd637f5ad7d39c0ef71f860854391c68392cb9fc746a27d55274cee1970"

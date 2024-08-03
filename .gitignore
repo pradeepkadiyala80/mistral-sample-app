@@ -1,3 +1,3 @@
 *.log
 export.sh
-
+__pycache__/

@@ -7,6 +7,8 @@ from serpapi import GoogleSearch
 
 from main import promptMistral
 
+import logging
+
 app = FastAPI()
 
 
@@ -28,12 +30,12 @@ def get_flights(departure_id: str, arrival_id: str, outbound_date: str, return_d
         "return_date": return_date,
         "currency": "USD"
     }
-    print(params)
-    search = GoogleSearc(params)
+    logging.info(params)
+    search = GoogleSearch(params)
     results = search.get_dict()
     return results
 
-@app.get("/assistant/flights")
-def search_flights(message: str) {
+# @app.get("/assistant/flights")
+# def search_flights(message: str):
     
-}
+# 

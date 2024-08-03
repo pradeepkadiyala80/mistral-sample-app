@@ -9,15 +9,16 @@ from mistralai.models.chat_completion import ChatMessage
 from tools import list as tools
 from dictionary import names_to_functions
 
+import config
+import sys
+import logging
+
 model = "mistral-large-latest"
 
 client = MistralClient(api_key=os.getenv("MISTRAL_API_KEY"))
 
 # ChatMessage(role="user", content="Find flight from AUS to SAN. I will be traveling on 2024-05-11 and will return on 2024-05-17")
-chat_history = [    
-    ChatMessage(role="user", content="Find flight from AUS to SAN. I will be traveling on 2024-06-11 and will return on 2024-06-17")
-]
-
+chat_history = []
 
 
 def promptMistral(msg=""):
@@ -34,14 +35,23 @@ def find_flights():
     print(tool_fn)
     args = json.loads(tool_fn.arguments)
     result = names_to_functions[tool_fn.name](**args)
-    print("-------Result--------")
-    print(result)
-    final = promptMistral("Get the best flights from " + json.dumps(result))
-    print("-------FINAL--------")
+    logging.info("-------Result--------")
+    logging.info(result)
+    final = promptMistral("You are a flight agent. Provide the flights based on user requirements" + json.dumps(result))
+    logging.info("-------FINAL--------")
+    logging.info(final)
     print(final)
      
-
-find_flights()
+while True:
+    query = input('Prompt: ')
+    #To exit: use 'exit', 'quit', 'q', or Ctrl-D.",
+    if query.lower() in ["exit", "quit", "q"]:
+        print('Exiting')
+        logging.info("Exiting")
+        sys.exit()
+    chat_message = ChatMessage(role="user", content=query)
+    chat_history.append(chat_message)
+    find_flights()
 
 
 
