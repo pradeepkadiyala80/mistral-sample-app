@@ -17,9 +17,7 @@ model = "mistral-large-latest"
 
 client = MistralClient(api_key=os.getenv("MISTRAL_API_KEY"))
 
-# ChatMessage(role="user", content="Find flight from AUS to SAN. I will be traveling on 2024-09-11 and will return on 2024-09-17")
 chat_history = []
-
 
 def promptMistral(msg=""):
     response=mistral(msg)    
@@ -30,17 +28,20 @@ def find_flights():
     response = client.chat(
         model=model, messages=chat_history, tools=tools, tool_choice="auto"
     )
-    logger.info(response)
-    tool_fn = response.choices[0].message.tool_calls[0].function
-    #logger.debug(tool_fn)
-    args = json.loads(tool_fn.arguments)
-    result = names_to_functions[tool_fn.name](**args)
-    logger.info("-------Result--------")
-    logger.info(result)
-    final = promptMistral("You are a flight agent. Provide the flights based on user requirements" + json.dumps(result))
-    logger.info("-------FINAL--------")
-    logger.info(final)
-    print(final)
+    print(response)
+    if response.choices[0].message.tool_calls is None:
+        print(response.choices[0].message.content)
+    else: 
+        tool_fn = response.choices[0].message.tool_calls[0].function
+        #logger.debug(tool_fn)
+        args = json.loads(tool_fn.arguments)
+        result = names_to_functions[tool_fn.name](**args)
+        logger.info("-------Result--------")
+        logger.info(result)
+        final = promptMistral("You are a flight agent. Provide the available flights based on user requirements" + json.dumps(result))
+        logger.info("-------FINAL--------")
+        logger.info(final)
+        print(final)
      
 while True:
     query = input('Prompt: ')
