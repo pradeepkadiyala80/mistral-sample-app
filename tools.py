@@ -2,7 +2,7 @@ tool_flight_search = {
     "type": "function",
     "function": {
         "name": "get_flights",
-        "description": "Search for flights in US using the departure city, outbound date, arrival city and return date",
+        "description": "Search for flights in US using the departure city required, outbound date required, arrival city required and return date required",
         "parameters": {
             "type": "object",
             "properties": {

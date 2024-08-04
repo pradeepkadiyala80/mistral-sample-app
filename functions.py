@@ -1,6 +1,9 @@
 import json
 import os
-from config import logger
+import logging
+
+# Get the existing logger
+logger = logging.getLogger('my_logger')
 
 from serpapi import GoogleSearch
 
